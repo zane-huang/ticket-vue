@@ -1,0 +1,12 @@
+{
+  "type": "application/json",
+  "cache": {
+    "path": "./ticket-cached.json",
+    "encoding": "utf-8"
+  },
+  "authentication": {
+    "subdomain": "zane",
+    "email": "hzy.sync@gmail.com",
+    "token": "WwWFhg5tNag1GLNoYgtuhaTXRqHBTjbxLUMieivX"
+  }
+}
