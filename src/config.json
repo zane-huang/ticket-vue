@@ -1,0 +1,16 @@
+{
+  "welcome": {
+    "message": "Welcome to the Ticket Viewer"
+  },
+  "authentication": {
+    "subdomain": "zane",
+    "email": "hzy.sync@gmail.com",
+    "token": "WwWFhg5tNag1GLNoYgtuhaTXRqHBTjbxLUMieivX"
+  },
+  "pagination": {
+    "items_per_page": 2
+  }
+
+
+  
+}
