@@ -8,10 +8,18 @@ with open(config_file, 'r', encoding='UTF-8') as cf:
     config = json.load(cf)
 
 # welcome
+
+
 def print_welcome():
     print(config['welcome']['message'])
 
+
+# initialize buffer object
+pages = dict()
+
 # request a page from the api
+
+
 def request_page(page_num: int, pages: dict):
     if page_num in pages:
         return
@@ -30,11 +38,27 @@ def request_page(page_num: int, pages: dict):
         print("Request to server failed.")
         print("\tPage requested: " + page_num)
         print("\tStatus code: " + res.status_code)
-        return
+        return None
     pages[page_num] = json.loads(res.text)
-    print(json.dumps(pages[page_num])[:30])
-    print(page_num)
+    return res.status_code
 
-# debugging
-print_welcome()
-request_page(1, dict({}))
+# interfaces for ticket_viewer
+
+
+def get_page(page_num: int):
+    # already buffered
+    if page_num in pages:
+        return pages[page_num]
+    # try to retrieve from API
+    elif request_page(page_num, pages):
+        return pages[page_num]
+    else:
+        return None
+
+def get_ticket(page_num: int, ticket_num: int):
+    page = get_page(page_num)
+    if page:
+        tickets = page['tickets']
+        if 0 < ticket_num and ticket_num <= len(tickets):
+            return tickets[ticket_num - 1]
+    return None
