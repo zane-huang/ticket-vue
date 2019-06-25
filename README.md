@@ -15,7 +15,7 @@ It features:
 
 ## User Guide 
 
-**Instruction for running the application**
+### **Instruction for running the application**
 
 I assume that `python3` and `pip3` are present on the machine.
 
@@ -33,6 +33,24 @@ python3 ./ticket_viewer.py
 python3 ./test_loader.py
 
 ```
+
+### **Configuring account information and display preferences**
+
+A readable config file `src/config.json` is present. Below is a snippet of the config file.
+
+```json
+  "welcome": { "message": "Welcome to the Ticket Viewer" },
+  "authentication": {
+    "subdomain": "zane",
+    "email": "hzy.sync@gmail.com",
+    "token": "WwWFhg5tNag1GLNoYgtuhaTXRqHBTjbxLUMieivX"
+  },
+  "pagination": { "items_per_page": 25 }
+```
+
+- The `welcome` field is used to customize welcome message at the start of the program.
+- The `authentciation` field is used to update Zendesk account information.
+- The `pagination` field is used to set display preferences.
 
 ## TODO
 
