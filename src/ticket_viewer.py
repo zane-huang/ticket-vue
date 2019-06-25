@@ -1,4 +1,6 @@
 import ticket_loader as tl
+# from ticket_loader import TicketLoader
+# tl = TicketLoader(debug=True)
 
 
 class State:
@@ -106,9 +108,10 @@ class State:
                 ns.previous = self
                 return ns
             if command[0] == 'back':
-                while self.previous and self.previous.code == 'ticket':
-                    self = self.previous
-                return self.previous
+                ps = self.previous
+                while (ps and ps.code != 'page'):
+                    ps = ps.previous
+                return ps
             if command[0] == 'p':
                 ns = State(self.seq - 1)
                 ns.code = self.code
@@ -142,27 +145,29 @@ class State:
                 self.display_page(page)
                 return self
             else:
-                ns = State(1)
-                ns.code = 'error'
-                ns.previous = self
+                # ns = State(1)
+                # ns.code = 'error'
+                # ns.previous = self
+                self.code = 'error'
                 print("Requested ticket/page is not accessible.")
-                return ns
-        if self.code == 'ticket':
+                return self
+        elif self.code == 'ticket':
             # find page_num using pointer to previous state
-            ns = self.previous
-            while (ns and ns.code != 'page'):
-                ns = ns.previous
-            ticket = tl.get_ticket(ns.seq, self.seq)
+            ps = self.previous
+            while (ps and ps.code != 'page'):
+                ps = ps.previous
+            ticket = tl.get_ticket(ps.seq, self.seq)
             if ticket:
                 self.display_ticket(ticket)
                 return self
             else:
-                ns = State(1)
-                ns.code = 'error'
-                ns.previous = self
+                # ns = State(1)
+                # ns.code = 'error'
+                # ns.previous = self
+                self.code = 'error'
                 print("Requested ticket/page is not accessible.")
-                return ns
-        if self.code == 'error':
+                return self
+        elif self.code == 'error':
             print("Requested ticket/page is not accessible.")
         return self
 

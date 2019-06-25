@@ -62,3 +62,28 @@ def get_ticket(page_num: int, ticket_num: int):
         if 0 < ticket_num and ticket_num <= len(tickets):
             return tickets[ticket_num - 1]
     return None
+
+# Wrapper class for global methods
+class TicketLoader:
+    def __init__(self, debug=True):
+        self.debug = debug
+
+    def print_welcome(self):
+        print_welcome()
+        return
+
+    def get_ticket(self, page_num: int, ticket_num: int):
+        if self.debug:
+            if 0 <= ticket_num and ticket_num < 5:
+                return {'subject': f'ticket #{ticket_num} on page {page_num}',
+                        'tags': ['test']}
+            else:
+                return None
+        else:
+            return get_ticket(page_num, ticket_num)
+    
+    def get_page(self, page_num: int):
+        if self.debug:
+            return {'tickets': [{'subject': f'page {page_num}', 'tags': ['test']}]}
+        else:
+            return get_page(page_num)
